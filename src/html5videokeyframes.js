@@ -103,13 +103,15 @@
 			clearInterval(_interval); 
 		}catch(e){};
 	}
-	HTML5VideoKeyframes.prototype._monitorInterval = function(frameData){
-		var remainder = 1 % (_videoElement.currentTime / frameData.end);
-		if(remainder === 0 || remainder === 1){
-			_instance._stopInterval();
-			_instance._pause();
+	HTML5VideoKeyframes.prototype._monitorInterval = function(frameData){		
+		if(Math.round(_videoElement.currentTime) === Math.round(frameData.end)){
+			var remainder = 1 % (_videoElement.currentTime / frameData.end);
+			if(remainder === 0 || remainder === 1){
+				_instance._stopInterval();
+				_instance._pause();
 
-			if(frameData.onComplete) _processKeyframeEvent(_instance, frameData.onComplete, frameData);			
+				if(frameData.onComplete) _processKeyframeEvent(_instance, frameData.onComplete, frameData);			
+			}
 		}
 	}	
 	HTML5VideoKeyframes.prototype._seekTo = function(time){
@@ -159,7 +161,7 @@
 		_keyframes = xml2json.parser(xml).keyframes;		
 	}
 
-	var _processKeyframeEvent = function(instance, params, frameData){
+	var _processKeyframeEvent = function(instance, params, frameData){console.log(params.constructor )
 		if(params.constructor === String){
 			switch(params){
 				case 'stop':
@@ -175,10 +177,10 @@
 					instance._pause()
 					break;
 			}
-		}else if(params.constructor === Array){
+		}else if(params.constructor === Object){console.log(params)
 			for(var i=0; i<params.length; i++){
-				var context = params[i].context || _instance;
-				context[params[i].func](params[i].prms);
+				var scope = params[i].func.scope || _instance;
+				scope[params[i].func.name](params[i].func.params);
 			}
 		}
 	}

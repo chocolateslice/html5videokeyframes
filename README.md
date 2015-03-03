@@ -1,3 +1,3 @@
-# html5videokeyframes
+# HTML5 Video Keyframes
 JavaScript library for keyframes in HTML5 video with XML
 ## Let's go...

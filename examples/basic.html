@@ -12,12 +12,14 @@
 
 <body>
 	<div class="wrapper">
-		 <video width="320" height="240" id="video-0" muted buffer>
+		 <video width="320" height="240" id="video-0" muted buffer onloadeddata="videoLoaded();">
             <source src="basic.mp4" type="video/mp4">
             <source src="basic.ogg" type="video/ogg"> <!-- I can't be arsed testing with ogg from the limited user base -->
             Your browser does not support the video tag.
         </video>
 		<div class="controls">
+			<a href="javascript:;" onclick="toWedding()">To Wedding</a>
+			<a href="javascript:;" onclick="weddingLoop()">Wedding Loop</a>
 		</div>
 	</div>
 <!-- Scripts -->	
@@ -28,6 +30,8 @@
 		init();
 	}
 
+	var video;
+
 	function init(){
 		video = vkf.init({
 			src: 'basic.xml',
@@ -36,6 +40,17 @@
 		setTimeout(function(){
 			video.gotoAndPlay('intro_loop');
 		}, 1000);
+	}
+
+	function toWedding(){
+		video.gotoAndPlay('to_wedding')
+	}
+	function weddingLoop(){
+		video.gotoAndPlay('wedding_loop');
+	}
+
+	function videoLoaded(){
+		console.log('video loaded');
 	}
 </script>
 </body>

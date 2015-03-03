@@ -2,7 +2,25 @@
 	<keyframe>
 		<name>intro_loop</name>
 		<start>0.00</start>
-		<end>10.00</end>
+		<end>7.50</end>
+		<complete>loop</complete>
+	</keyframe>
+	<keyframe>
+		<name>to_wedding</name>
+		<start>73.00</start>
+		<end>76.00</end>
+		<complete>
+			<func>
+				<name>gotoAndPlay</name>
+				<params>wedding_loop</params>
+				<scope></scope>
+			</func>			
+		</complete>
+	</keyframe>
+	<keyframe>
+		<name>wedding_loop</name>
+		<start>42.00</start>
+		<end>59.50</end>
 		<complete>loop</complete>
 	</keyframe>
 	<keyframe>
@@ -10,28 +28,16 @@
 		<start></start>
 		<end></end>
 		<complete>
-			<function>
-				<name>gotoAndPlay</name>
-				<params></params>
-				<scope></scope>
-			</function>			
-		</complete>
-	</keyframe>
-	<keyframe>
-		<name></name>
-		<start></start>
-		<end></end>
-		<complete>
-			<function>
+			<func>
 				<name></name>
 				<params></params>
 				<scope></scope>
-			</function>
-			<function>
+			</func>
+			<func>
 				<name></name>
 				<params></params>
 				<scope></scope>
-			</function>				
+			</func>				
 		</complete>
 	</keyframe>
 </keyframes>
