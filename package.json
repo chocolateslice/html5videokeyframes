@@ -1,0 +1,26 @@
+{
+  "name": "html5videokeyframes",
+  "version": "0.0.1",
+  "description": "JavaScript library for keyframes in HTML5 video",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chocolateslice/html5videokeyframes.git"
+  },
+  "keywords": [
+    "video",
+    "keyframes"
+  ],
+  "author": "Rich Helliwell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chocolateslice/html5videokeyframes/issues"
+  },
+  "homepage": "https://github.com/chocolateslice/html5videokeyframes"
+}

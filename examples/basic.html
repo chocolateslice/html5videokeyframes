@@ -1,0 +1,43 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>HTML5 Video Keyframes Example</title>
+	<meta name="description" content="The HTML5 Herald">
+	<meta name="author" content="SitePoint">
+
+	<link rel="stylesheet" href="basic.css">
+</head>
+
+<body>
+	<div class="wrapper">
+		 <video width="320" height="240" id="video-0" muted buffer>
+            <source src="basic.mp4" type="video/mp4">
+            <source src="basic.ogg" type="video/ogg"> <!-- I can't be arsed testing with ogg from the limited user base -->
+            Your browser does not support the video tag.
+        </video>
+		<div class="controls">
+		</div>
+	</div>
+<!-- Scripts -->	
+<script src="../bower_components/xml2json/xml2json.js"></script>
+<script src="../src/html5videokeyframes.js"></script>
+<script>
+	window.onload = function () {
+		init();
+	}
+
+	function init(){
+		video = vkf.init({
+			src: 'basic.xml',
+			id: 'video-0'			
+		});	
+		setTimeout(function(){
+			video.gotoAndPlay('intro_loop');
+		}, 1000);
+	}
+</script>
+</body>
+</html>
+

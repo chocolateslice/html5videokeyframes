@@ -1,0 +1,25 @@
+{
+  "name": "html5videokeyframes",
+  "version": "0.0.1",
+  "homepage": "https://github.com/chocolateslice/html5videokeyframes",
+  "authors": [
+    "Rich Helliwell <rich@giantrobot.co.uk>"
+  ],
+  "description": "JavaScript library for keyframes in HTML5 video keyframes with XML",
+  "main": "dist/html5videokeyframes.min.js",
+  "keywords": [
+    "video",
+    "keyframes"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "xml2json": "~1.1.1"
+  }
+}

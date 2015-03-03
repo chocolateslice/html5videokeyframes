@@ -1,2 +1,3 @@
 # html5videokeyframes
-JavaScript library for controlling HTML5 video keyframes with XML or JSON
+JavaScript library for keyframes in HTML5 video with XML
+## Let's go...

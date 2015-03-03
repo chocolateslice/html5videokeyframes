@@ -1,0 +1,37 @@
+<keyframes>
+	<keyframe>
+		<name>intro_loop</name>
+		<start>0.00</start>
+		<end>10.00</end>
+		<complete>loop</complete>
+	</keyframe>
+	<keyframe>
+		<name></name>
+		<start></start>
+		<end></end>
+		<complete>
+			<function>
+				<name>gotoAndPlay</name>
+				<params></params>
+				<scope></scope>
+			</function>			
+		</complete>
+	</keyframe>
+	<keyframe>
+		<name></name>
+		<start></start>
+		<end></end>
+		<complete>
+			<function>
+				<name></name>
+				<params></params>
+				<scope></scope>
+			</function>
+			<function>
+				<name></name>
+				<params></params>
+				<scope></scope>
+			</function>				
+		</complete>
+	</keyframe>
+</keyframes>
