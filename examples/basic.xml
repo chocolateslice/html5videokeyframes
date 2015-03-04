@@ -24,6 +24,24 @@
 		<complete>loop</complete>
 	</keyframe>
 	<keyframe>
+		<name>head_bang_loop</name>
+		<start>8.00</start>
+		<end>12.60</end>
+		<complete>
+			<func>loop</func>
+			<func>
+				<name>headBangWindowFunction</name>
+				<params>foo, bar</params>
+				<scope>window</scope>
+			</func>		
+		</complete>
+	</keyframe>
+	<keyframe>
+		<name>fence_fall</name>
+		<start>20.00</start>
+		<end>23.60</end>		
+	</keyframe>
+	<keyframe>
 		<name></name>
 		<start></start>
 		<end></end>

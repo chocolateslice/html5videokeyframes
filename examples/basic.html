@@ -18,8 +18,10 @@
             Your browser does not support the video tag.
         </video>
 		<div class="controls">
-			<a href="javascript:;" onclick="toWedding()">To Wedding</a>
-			<a href="javascript:;" onclick="weddingLoop()">Wedding Loop</a>
+			<a href="javascript:;" onclick="toWedding()">To Wedding</a><br>
+			<a href="javascript:;" onclick="weddingLoop()">Wedding Loop</a><br>
+			<a href="javascript:;" onclick="headBangLoop()">Head Bang Loop with window function</a><br>
+			<a href="javascript:;" onclick="scope.doFunction()">fence Fall to pause with scoped function</a><br>
 		</div>
 	</div>
 <!-- Scripts -->	
@@ -43,11 +45,52 @@
 	}
 
 	function toWedding(){
-		video.gotoAndPlay('to_wedding')
+		video.gotoAndPlay('to_wedding');
 	}
 	function weddingLoop(){
 		video.gotoAndPlay('wedding_loop');
 	}
+	function headBangLoop(){
+		video.gotoAndPlay('head_bang_loop');	
+	}
+	function headBangWindowFunction(params){
+		console.log(params);
+	}
+
+	var scope = new FenceFall();
+
+	function FenceFall(){
+		var that = this;
+
+		this.doFunction = function(){
+			video.gotoAndPlay({
+				name:'fence_fall',
+				onComplete: {
+					func:[
+						'loop',
+						{
+							name: 'fenceFallScopeFunction',
+							params: 'bar, foo',
+							scope: that
+						},
+						{
+							name: 'fenceFallScopeFunction2',
+							params: 'bar, foo, 2',
+							scope: that
+						}
+					]					
+				}
+			});
+		}
+
+		this.fenceFallScopeFunction = function(params){
+			console.log(params);
+		}
+		this.fenceFallScopeFunction2 = function(params){
+			console.log(params);
+		}
+	}
+
 
 	function videoLoaded(){
 		console.log('video loaded');

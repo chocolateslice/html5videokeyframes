@@ -62,13 +62,22 @@
 			keyframeName = params;
 		}
 		
-		var frameData = _keyframeByName(keyframeName);console.log(frameData)
-		frameData.onComplete = onComplete ? onComplete: frameData.complete;
-		frameData.onBegin = onBegin ? onComplete: frameData.begin;
+		var frameData = _keyframeByName(keyframeName);
+		frameData.onComplete = onComplete ? onComplete : frameData.complete;
+		frameData.onBegin = onBegin ? onBegin : frameData.begin;
 
 		_instance._seekTo(frameData.start);
 		_instance._startInterval(frameData);
 		_instance._play();
+	}
+	HTML5VideoKeyframes.prototype.stop = function(){
+		_instance._stop();
+	}
+	HTML5VideoKeyframes.prototype.play = function(){
+		_instance._play();
+	}
+	HTML5VideoKeyframes.prototype.pause = function(){
+		_instance._pause();
 	}
 	HTML5VideoKeyframes.prototype.destroy = function(){
 		clearInterval(_interval);
@@ -110,7 +119,7 @@
 				_instance._stopInterval();
 				_instance._pause();
 
-				if(frameData.onComplete) _processKeyframeEvent(_instance, frameData.onComplete, frameData);			
+				if(frameData.onComplete) _onComplete(_instance, frameData.onComplete, frameData);			
 			}
 		}
 	}	
@@ -161,7 +170,34 @@
 		_keyframes = xml2json.parser(xml).keyframes;		
 	}
 
-	var _processKeyframeEvent = function(instance, params, frameData){console.log(params.constructor )
+	var _onComplete = function(instance, params, frameData){console.log(params.constructor, params)
+		if(params.constructor === String){
+			_processEventsFromString(instance, params, frameData)
+		}else if(params.constructor === Array){
+
+		}else if(params.constructor === Object){
+
+		}
+	}
+
+	var _processEventsFromString = function(instance, params, frameData){
+		switch(params){
+			case 'stop':
+				instance._stop();
+				break;
+			case 'loop':
+				instance._loop(frameData)
+				break;
+			case 'pause':
+				instance._pause();
+				break;
+			default: 
+				instance._pause();
+				break;
+		}
+	}
+
+	var _processKeyframeEvent = function(instance, params, frameData){
 		if(params.constructor === String){
 			switch(params){
 				case 'stop':
@@ -171,18 +207,36 @@
 					instance._loop(frameData)
 					break;
 				case 'pause':
-					instance._pause()
+					instance._pause();
 					break;
 				default: 
-					instance._pause()
+					instance._pause();
 					break;
 			}
-		}else if(params.constructor === Object){console.log(params)
-			for(var i=0; i<params.length; i++){
-				var scope = params[i].func.scope || _instance;
-				scope[params[i].func.name](params[i].func.params);
+			return;
+		}else if(params.constructor === Object){
+			if(params.func.length){
+				for(var i=0; i<params.func.length; i++){
+					_processKeyframeFunction(params.func[i]);
+				}
+				return;
 			}
+			_processKeyframeFunction(params.func);
+			return;
 		}
+		instance._pause();
+		return;
+	}
+
+	var _processKeyframeFunction = function(func){
+		var scope = !func.scope ? _instance : func.scope;
+		if(scope.constructor === String) scope = eval(scope);
+		if(scope.constructor === Object) scope = _instance;
+		try{
+			scope[func.name](func.params);
+		}catch(e){
+			console.log('function ' + func.name + ' with scope ' + scope + ' is undefined!');
+		} 
 	}
 
 	var _keyframeByName = function(name){
@@ -192,16 +246,14 @@
 		}
 		return null;
 	}
-
-//HTML5VideoKeyframes.prototype
-
 	var _addEvent = vkf.addEvent = function(element, names, callback) {
 	}
 	var _removeEvent = vkf.removeEvent = function(element, names, callback) {
 	}
 
 	// Expose vkf as either a global variable or a require.js module.
-	/*if(typeof define === 'function' && define.amd) {
+	// I stole this bit fom skrollr
+	if(typeof define === 'function' && define.amd) {
 		define([], function () {
 			return vkf;
 		});
@@ -209,7 +261,6 @@
 		module.exports = vkf;
 	} else {
 		window.vkf = vkf;
-	}*/
-	window.vkf = vkf;
+	}
 
 }(window, document));
