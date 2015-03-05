@@ -24,7 +24,8 @@
 			<a href="javascript:;" onclick="scope.doFunction()">fence Fall to pause with scoped function</a><br>
 		</div>
 	</div>
-<!-- Scripts -->	
+<!-- Scripts -->
+<script src="../bower_components/es6-promise/promise.min.js"></script>	
 <script src="../bower_components/xml2json/xml2json.js"></script>
 <script src="../src/html5videokeyframes.js"></script>
 <script>
@@ -37,11 +38,12 @@
 	function init(){
 		video = vkf.init({
 			src: 'basic.xml',
-			id: 'video-0'			
+			id: 'video-0',
+			buffer: true			
 		});	
-		setTimeout(function(){
+		//setTimeout(function(){
 			video.gotoAndPlay('intro_loop');
-		}, 1000);
+		//}, 1000);
 	}
 
 	function toWedding(){
@@ -67,7 +69,7 @@
 				name:'fence_fall',
 				onComplete: {
 					func:[
-						'loop',
+						'pause',
 						{
 							name: 'fenceFallScopeFunction',
 							params: 'bar, foo',
@@ -77,6 +79,11 @@
 							name: 'fenceFallScopeFunction2',
 							params: 'bar, foo, 2',
 							scope: that
+						},
+						{
+							name: 'headBangWindowFunction',
+							params: 'head bang call from fence fall',
+							scope: window
 						}
 					]					
 				}

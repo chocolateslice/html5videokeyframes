@@ -41,21 +41,4 @@
 		<start>20.00</start>
 		<end>23.60</end>		
 	</keyframe>
-	<keyframe>
-		<name></name>
-		<start></start>
-		<end></end>
-		<complete>
-			<func>
-				<name></name>
-				<params></params>
-				<scope></scope>
-			</func>
-			<func>
-				<name></name>
-				<params></params>
-				<scope></scope>
-			</func>				
-		</complete>
-	</keyframe>
 </keyframes>

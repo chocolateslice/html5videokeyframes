@@ -1,28 +1,28 @@
 'use strict';
 
 var gulp = require('gulp');
-var gutil = require('gulp-util');
-// load plugins
+var del = require('del');
 var $ = require('gulp-load-plugins')();
 
-gulp.task('scripts', function () {
+gulp.task('hint', function () {
     return gulp.src('src/*.js')
         .pipe($.jshint())
-        .pipe($.jshint.reporter(require('jshint-stylish')))
-        .pipe($.size());
+        .pipe($.jshint.reporter(require('jshint-stylish')));
 });
 
-gulp.task('clean', function () {
-    return gulp.src(['app/styles/main.css', 'dist'], { read: false }).pipe($.clean());
+gulp.task('clean', function() {
+	return del([
+		'dist/*.js'
+	]);
 });
 
-gulp.task('build', ['html', 'images', 'fonts']);
-
-gulp.task('default', ['clean'], function () {
-    gulp.start('build');
+gulp.task('compress', function() {
+  	return gulp.src('src/*.js')
+   		.pipe($.uglify())
+   		.pipe($.rename({
+			suffix: '.min'
+		}))
+    	.pipe(gulp.dest('dist'));
 });
 
-
-gulp.task('watch', ['serve'], function () {
-    gulp.watch('src/**/*.js', ['scripts']);
-});
+gulp.task('default', ['hint', 'clean', 'compress']);
