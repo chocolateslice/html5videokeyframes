@@ -6,7 +6,7 @@
     "ChocolateSlice <chocolateslice@skinnedabounty.com>"
   ],
   "description": "JavaScript library for keyframes in HTML5 video keyframes with XML",
-  "main": "src/html5videokeyframes.js",
+  "main": "dist/html5videokeyframes.min.js",
   "keywords": [
     "video",
     "keyframes",

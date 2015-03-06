@@ -241,6 +241,16 @@
 		}
 		return null;
 	};
+
+	var _promisePolyfill = function(){
+		try{ 
+			new Promise();
+		}catch(e){
+			ES6Promise.polyfill();
+		}
+	};
+
+	_promisePolyfill();
 	/*var _addEvent = vkf.addEvent = function(element, names, callback) {
 	}
 	var _removeEvent = vkf.removeEvent = function(element, names, callback) {

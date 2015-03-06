@@ -1,6 +1,8 @@
 # HTML5 Video Keyframes
 
-JavaScript library for keyframes in HTML5 video with XML
+JavaScript library for XML driven keyframes in HTML5 video.
+
+While it does work on mobile the limitation is that the video has to be manually started before anything can happen. Tough but fair.
 
 ## Usage
 
@@ -9,8 +11,23 @@ It's called basic but it does everything it needs to show right now
 
 ## Dependencies
 
-[xml2json](https://github.com/ron-liu/xml2json) - XML to JSON Parser. This one was chosen cause I'm familiar with it and it was on bower 
-[es6-promise](https://github.com/components/es6-promise) - This is a polyfill of the ES6 Promise. Not strictly necessary but if you want it to work on Safari you'll need this
+* [xml2json](https://github.com/ron-liu/xml2json) - XML to JSON Parser. Required for the conversion of the XML and available on bower.
+* [es6-promise](https://github.com/components/es6-promise) - This is a polyfill of the ES6 Promise. Not strictly necessary but if you want it to work on IE or Safari you'll need this.
+
+## Installation
+
+//bower install html5videokeyframes -save
+
+## Build
+```
+gulp
+```
+Uglifies the code and that's that
+
+```
+gulp build 
+```
+Concats dependacies and the libaray into one easy use file
 
 ## TODO:
 
