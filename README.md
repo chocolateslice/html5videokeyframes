@@ -16,7 +16,7 @@ It's called basic but it does everything it needs to show right now
 
 ## Installation
 
-//bower install html5videokeyframes -save
+bower install html5videokeyframes -save ... this is not yet set up
 
 ## Build
 ```
