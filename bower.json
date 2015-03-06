@@ -9,7 +9,8 @@
   "main": "src/html5videokeyframes.js",
   "keywords": [
     "video",
-    "keyframes"
+    "keyframes",
+    "html5"
   ],
   "license": "MIT",
   "ignore": [
