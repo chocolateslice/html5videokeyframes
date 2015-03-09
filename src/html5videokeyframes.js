@@ -106,7 +106,7 @@
 		});
 	};
 	HTML5VideoKeyframes.prototype._startInterval = function(frameData){
-		if(frameData.onBegin) _processKeyframeEvent(_instance, frameData, 'onBegin');
+		if(frameData.onBegin) _ononKeyframeEvent(_instance, frameData.onBegin, frameData);
 
 		_instance._stopInterval();
 
@@ -126,7 +126,7 @@
 				_instance._stopInterval();
 				_instance._pause();
 
-				if(frameData.onComplete) _onComplete(_instance, frameData.onComplete, frameData);			
+				if(frameData.onComplete) _onKeyframeEvent(_instance, frameData.onComplete, frameData);			
 			}
 		}
 	};
@@ -184,7 +184,7 @@
 		_instance._keyframes = xml2json.parser(data).keyframes;		
 	};
 
-	var _onComplete = function(instance, params, frameData){
+	var _onKeyframeEvent = function(instance, params, frameData){
 		if(params.constructor === String){
 			_processEventsFromString(instance, params, frameData);
 		}else if(params.constructor === Object){
@@ -205,7 +205,6 @@
 			}
 		}
 	};
-
 	var _processEventsFromString = function(instance, params, frameData){
 		switch(params){
 			case 'stop':

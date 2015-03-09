@@ -14,7 +14,8 @@ keyframeVideo = vkf.init({
 ```
 DTD
 ```
-<!ELEMENT keyframes (keyframe, from, heading, body)>
+<!ELEMENT keyframes (keyframe)>
+<!ELEMENT keyframe (name, start, end, begin, complete)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT start (#PCDATA)>
 <!ELEMENT end (#PCDATA)>
@@ -24,6 +25,10 @@ DTD
 
 XML schema
 ```
+http://www.freeformatter.com
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
 <xs:element name="keyframes">
   	<xs:complexType>
     	<xs:sequence>
