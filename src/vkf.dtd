@@ -1,0 +1,7 @@
+<!ELEMENT keyframes (keyframe)>
+<!ELEMENT keyframe (name, start, end, begin, complete)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT start (#PCDATA)>
+<!ELEMENT end (#PCDATA)>
+<!ELEMENT begin (#PCDATA)>
+<!ELEMENT complete (#PCDATA)> 

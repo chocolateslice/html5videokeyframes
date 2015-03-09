@@ -5,10 +5,59 @@ JavaScript library for XML driven keyframes in HTML5 video.
 While it does work on mobile the limitation is that the video has to be manually started before anything can happen. Tough but fair.
 
 ## Usage
+Initialise
+```
+keyframeVideo = vkf.init({
+	src: 'src.xml', // XML src file
+	id: 'video-0' // ID of the video element
+});	
+```
+DTD
+```
+<!ELEMENT keyframes (keyframe, from, heading, body)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT start (#PCDATA)>
+<!ELEMENT end (#PCDATA)>
+<!ELEMENT begin (#PCDATA)>
+<!ELEMENT complete (#PCDATA)>  
+```
 
-I intend to document this but right now there is a decent example in the examples folder. 
-It's called basic but it does everything it needs to show right now
-
+XML schema
+```
+<xs:element name="keyframes">
+  	<xs:complexType>
+    	<xs:sequence>
+    		<xs:element name="keyframe">
+    			<xs:complexType>
+    				<xs:sequence>
+    						<xs:element name="to" type="xs:string"/>
+    						<xs:element name="start" type="xs:string"/>
+    						<xs:element name="end" type="xs:string"/>
+    				</xs:sequence>
+  				</xs:complexType>
+    		</xs:element>
+	<!--keyframe>
+		<name>intro_loop</name>
+		<start>0.00</start>
+		<end>7.50</end>
+		<complete>loop</complete>
+	</keyframe>
+	<keyframe>
+		<name>to_wedding</name>
+		<start>73.00</start>
+		<end>76.00</end>
+		<complete>
+			<func>
+				<name>gotoAndPlay</name>
+				<params>wedding_loop</params>
+				<scope></scope>
+			</func>			
+		</complete>
+	</keyframe-->
+		</xs:sequence>
+  	</xs:complexType>
+</xs:element>
+```
 ## Dependencies
 
 * [xml2json](https://github.com/ron-liu/xml2json) - XML to JSON Parser. Required for the conversion of the XML and available on bower.
@@ -27,9 +76,10 @@ Uglifies the code and that's that
 ```
 gulp build 
 ```
-Concats dependacies and the libaray into one easy use file
+Concats dependacies and the libaray into one easy to use minified file
 
 ## TODO:
 
-* Write documentation
 * Find alternative for eval (cause everyone gets their knickers in a twist when eval is used)
+* Enable options buffering
+* Check video load state
