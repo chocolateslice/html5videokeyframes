@@ -250,10 +250,6 @@
 	};
 
 	_promisePolyfill();
-	/*var _addEvent = vkf.addEvent = function(element, names, callback) {
-	}
-	var _removeEvent = vkf.removeEvent = function(element, names, callback) {
-	}*/
 
 	// Expose vkf as either a global variable or a require.js module.
 	// I stole this bit fom skrollr...along with some other ideas. Sorry

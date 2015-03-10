@@ -4,6 +4,8 @@ JavaScript library for XML driven keyframes in HTML5 video.
 
 While it does work on mobile the limitation is that the video has to be manually started before anything can happen. Tough but fair.
 
+I can only apologise for any errors. I do intend to tidy up the code and the instructions but I have to skip onto something else right now.
+
 ## Usage
 Initialise
 ```
@@ -12,56 +14,25 @@ keyframeVideo = vkf.init({
 	id: 'video-0' // ID of the video element
 });	
 ```
-DTD
+To a keyframe by name
 ```
-<!ELEMENT keyframes (keyframe)>
-<!ELEMENT keyframe (name, start, end, begin, complete)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT start (#PCDATA)>
-<!ELEMENT end (#PCDATA)>
-<!ELEMENT begin (#PCDATA)>
-<!ELEMENT complete (#PCDATA)>  
+keyframeVideo.gotoAndPlay('loop_name');
 ```
-
-XML schema
+To a keyframe by name with additonal paramaters
 ```
-http://www.freeformatter.com
-<?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-<xs:element name="keyframes">
-  	<xs:complexType>
-    	<xs:sequence>
-    		<xs:element name="keyframe">
-    			<xs:complexType>
-    				<xs:sequence>
-    						<xs:element name="to" type="xs:string"/>
-    						<xs:element name="start" type="xs:string"/>
-    						<xs:element name="end" type="xs:string"/>
-    				</xs:sequence>
-  				</xs:complexType>
-    		</xs:element>
-	<!--keyframe>
-		<name>intro_loop</name>
-		<start>0.00</start>
-		<end>7.50</end>
-		<complete>loop</complete>
-	</keyframe>
-	<keyframe>
-		<name>to_wedding</name>
-		<start>73.00</start>
-		<end>76.00</end>
-		<complete>
-			<func>
-				<name>gotoAndPlay</name>
-				<params>wedding_loop</params>
-				<scope></scope>
-			</func>			
-		</complete>
-	</keyframe-->
-		</xs:sequence>
-  	</xs:complexType>
-</xs:element>
+video.gotoAndPlay({
+	name:'loop_name',
+	onComplete: {
+		func:[
+			'pause', // pause, loop or stop
+			{
+				name: 'functionToCallOnComplete',
+				params: 'bar, foo',
+				scope: window
+			}
+		]					
+	}
+});
 ```
 ## Dependencies
 
