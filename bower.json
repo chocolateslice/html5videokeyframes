@@ -5,7 +5,7 @@
   "authors": [
     "ChocolateSlice <chocolateslice@skinnedabounty.com>"
   ],
-  "description": "JavaScript library for keyframes in HTML5 video keyframes with XML",
+  "description": "JavaScript library for XML driven keyframes in HTML5 video",
   "main": "dist/html5videokeyframes.min.js",
   "keywords": [
     "video",
