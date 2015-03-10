@@ -20,7 +20,7 @@ keyframeVideo.gotoAndPlay('loop_name');
 ```
 To a keyframe by name with additonal paramaters
 ```
-video.gotoAndPlay({
+keyframeVideo.gotoAndPlay({
 	name:'loop_name',
 	onComplete: {
 		func:[
@@ -41,7 +41,7 @@ video.gotoAndPlay({
 
 ## Installation
 
-bower install html5videokeyframes -save ... this is not yet set up
+bower install html5videokeyframes -save
 
 ## Build
 ```
