@@ -25,25 +25,28 @@
 		// Instance
 		_instance = this;
 		// Instance properties
-		this._videoElement = null;
-		this._buffer = null;
+		if(!options.wrapper){
+			console.log('No wrapper id defined');
+			return;
+		}
+		if(!options.props){
+			console.log('No video properties defined');
+			return;
+		} 
+		// Video element
+		
+		this._videoElement = document.getElementById(_createVideoPlayer(options.wrapper, options.props));
+		// Other stuff
+		this._buffered = false;
 		this._interval = null;
 		this._keyframes = null;
-		// Video element
-		if(!options.id){
-			console.log('No video id defined');
-			return;
-		}else{
-			_instance._videoElement = document.getElementById(options.id);
-		}
 		// Keyframes
-		if(!options.src){
-			console.log('No keyframe src defined');
+		if(!options.keyframes){
+			console.log('No keyframe xml defined');
 			return;
 		}
-		_instance._buffer = options.buffer || true;
-
-		_instance._loadData(options.src).then(function(response){
+		// Load data with a promise
+		_instance._loadData(options.keyframes).then(function(response){
 			_instance._parseData(response);
 		}, function(error){
 			console.log('Error loading data', error);
@@ -74,6 +77,7 @@
 			setTimeout(function(){
 				_instance.gotoAndPlay(params);
 			}, 50);
+			return;
 		});	
 	};
 	HTML5VideoKeyframes.prototype.stop = function(){
@@ -96,58 +100,6 @@
 	/**
 	 * Private methods
 	 */
-	HTML5VideoKeyframes.prototype._keyframeState = function(){
-		return new Promise(function(resolve, reject){
-			if(_instance._keyframes){
-				resolve();
-			}else{
-				reject();
-			}
-		});
-	};
-	HTML5VideoKeyframes.prototype._startInterval = function(frameData){
-		if(frameData.onBegin) _ononKeyframeEvent(_instance, frameData.onBegin, frameData);
-
-		_instance._stopInterval();
-
-		_instance._interval = setInterval(function(){
-			_instance._monitorInterval(frameData);
-		}, 10);
-	};
-	HTML5VideoKeyframes.prototype._stopInterval = function(){
-		try{ 
-			clearInterval(_instance._interval); 
-		}catch(e){}
-	};
-	HTML5VideoKeyframes.prototype._monitorInterval = function(frameData){		
-		if(Math.round(_instance._videoElement.currentTime) === Math.round(frameData.end)){
-			var remainder = 1 % (this._videoElement.currentTime / frameData.end);
-			if(remainder === 0 || remainder === 1){
-				_instance._stopInterval();
-				_instance._pause();
-
-				if(frameData.onComplete) _onKeyframeEvent(_instance, frameData.onComplete, frameData);			
-			}
-		}
-	};
-	HTML5VideoKeyframes.prototype._seekTo = function(time){
-		_instance._videoElement.currentTime = time;
-	};
-	HTML5VideoKeyframes.prototype._play = function(){
-		_instance._videoElement.play();
-	};
-	HTML5VideoKeyframes.prototype._stop = function(){		
-		_instance._videoElement.currentTime = 0;
-		_instance._videoElement.pause();
-	};
-	HTML5VideoKeyframes.prototype._pause = function(){
-		_instance._videoElement.pause();
-	};
-	HTML5VideoKeyframes.prototype._loop = function(frameData){
-		_instance._seekTo(frameData.start);
-		_instance._startInterval(frameData);
-		_instance._play();
-	};
 	HTML5VideoKeyframes.prototype._loadData = function(src){
 		return new Promise(function(resolve, reject){
 			var req = new XMLHttpRequest();
@@ -183,7 +135,94 @@
 	HTML5VideoKeyframes.prototype._parseData = function(data){
 		_instance._keyframes = xml2json.parser(data).keyframes;		
 	};
+	HTML5VideoKeyframes.prototype._keyframeState = function(){
+		return new Promise(function(resolve, reject){
+			if(_instance._keyframes){
+				resolve();
+			}else{
+				reject();
+			}
+		});
+	};
+	HTML5VideoKeyframes.prototype._bufferState = function(){
+		return new Promise(function(resolve, reject){
+			if(!_instance.buffer){
+				resolve();
+			}else if(_instance.buffer && _instance.buffered){
+				resolve();
+			}else{
+				reject();
+			}
+		});
+	};
+	HTML5VideoKeyframes.prototype._startInterval = function(frameData){
+		if(frameData.onBegin) _ononKeyframeEvent(_instance, frameData.onBegin, frameData);
+		// Restart  monitor interval
+		_instance._stopInterval();
+		_instance._interval = setInterval(function(){
+			_instance._monitorInterval(frameData);
+		}, 10);
+	};
+	HTML5VideoKeyframes.prototype._stopInterval = function(){
+		try{ 
+			clearInterval(_instance._interval); 
+		}catch(e){}
+	};
+	HTML5VideoKeyframes.prototype._monitorInterval = function(frameData){
+		if(Math.round(_instance._videoElement.currentTime) === Math.round(frameData.end)){
+			var remainder = 1 % (this._videoElement.currentTime / frameData.end);
+			if(remainder === 0 || remainder === 1){
+				_instance._stopInterval();
+				_instance._pause();
 
+				if(frameData.onComplete) _onKeyframeEvent(_instance, frameData.onComplete, frameData);			
+			}
+		}
+	};
+	HTML5VideoKeyframes.prototype._seekTo = function(time){
+		try{
+			_instance._videoElement.currentTime = time;
+		}catch(e){}
+	};
+	HTML5VideoKeyframes.prototype._play = function(){
+		_instance._videoElement.play();
+	};
+	HTML5VideoKeyframes.prototype._stop = function(){		
+		_instance._videoElement.currentTime = 0;
+		_instance._videoElement.pause();
+	};
+	HTML5VideoKeyframes.prototype._pause = function(){
+		_instance._videoElement.pause();
+	};
+	HTML5VideoKeyframes.prototype._loop = function(frameData){
+		_instance._seekTo(frameData.start);
+		_instance._startInterval(frameData);
+		_instance._play();
+	};
+	// 
+	var _createVideoPlayer = function(wrapper, props){
+		var vc = document.getElementById(wrapper);
+		var id = props.id || 'video-' + _randomString(5);
+		var qs = props.forceReload ? '?v=' + _randomString(20) : '';
+		var videoHtml = '<video ';
+		videoHtml += 'width="';
+		videoHtml += props.width || 320;
+		videoHtml += '" height="';
+		videoHtml += props.height || 240;
+		videoHtml += '" id="' + id + '" ';
+		if(props.attrs.muted) videoHtml += 'muted ';
+		if(props.attrs.controls) videoHtml += 'controls ';
+		if(props.attrs.poster) videoHtml += 'poster="' + props.attrs.poster + '" ';
+		if(props.attrs.title) videoHtml += 'title="' + props.attrs.title + '" ';
+		videoHtml += 'preload="auto">';
+		if(props.srcs.mp4) videoHtml += '<source src="' + props.srcs.mp4 + qs + '" type="video/mp4">';
+		if(props.srcs.ogg) videoHtml += '<source src="' + props.srcs.ogg + qs + '" type="video/ogg">';
+		if(props.srcs.webm) videoHtml += '<source src="' + props.srcs.ogg + qs + '" type="video/webm">';
+		videoHtml += '</video>';
+		vc.innerHTML = videoHtml;
+
+		return id;
+	};
 	var _onKeyframeEvent = function(instance, params, frameData){
 		if(params.constructor === String){
 			_processEventsFromString(instance, params, frameData);
@@ -221,10 +260,9 @@
 				break;
 		}
 	};
-
 	var _processKeyframeFunction = function(func){
 		var scope = !func.scope ? _instance : func.scope;
-		if(scope.constructor === String) scope = eval(scope);
+		if(scope.constructor === String && scope === "window") scope = window;
 		if(scope.constructor === Object) scope = _instance;
 		try{
 			scope[func.name](func.params);
@@ -232,7 +270,6 @@
 			console.log('function ' + func.name + ' with scope ' + scope + ' is undefined!');
 		} 
 	};
-
 	var _keyframeByName = function(instance, name){
 		var keyframes = instance._keyframes.keyframe;
 		for(var i=0; i<keyframes.length; i++){
@@ -240,7 +277,14 @@
 		}
 		return null;
 	};
-
+	var _randomString = function(len){
+		var str = '';
+	    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	    for( var i=0; i < len; i++ ){
+	        str += chars.charAt(Math.floor(Math.random() * chars.length));
+	    }
+	    return str;
+	};
 	var _promisePolyfill = function(){
 		try{ 
 			new Promise();

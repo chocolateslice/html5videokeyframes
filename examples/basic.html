@@ -11,12 +11,24 @@
 </head>
 
 <body>
-	<div class="wrapper">
-		 <video width="320" height="240" id="video-0" muted buffer onloadeddata="videoLoaded();">
-            <source src="basic.mp4" type="video/mp4">
-            <source src="basic.ogg" type="video/ogg"> <!-- I haven't tested with ogg as it has limited users -->
+	<script>
+		var mp4Src = 'http://dev.giantrobot.co.uk/basic.mp4?v='
+		var text = '';
+	    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	    for( var i=0; i < 20; i++ ){
+	        text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    }
+	    mp4Src += text; 
+	</script>
+
+	<div class="wrapper" id="video-wrapper">
+		 <!--video width="320" height="240" id="video-0" preload="none" muted buffer>
+		 	<script> document.write('<source src="' + mp4Src + '" type="video/mp4">'); </script>
+            <source src="basic.ogg" type="video/ogg"> 
             Your browser does not support the video tag.
-        </video>
+        </video-->		
+	</div>
+	<div class="wrapper">
 		<div class="controls">
 			<a href="javascript:;" onclick="toWedding()">To Wedding</a><br>
 			<a href="javascript:;" onclick="weddingLoop()">Wedding Loop</a><br>
@@ -37,9 +49,21 @@
 
 	function init(){
 		video = vkf.init({
-			src: 'basic.xml',
-			id: 'video-0',
-			buffer: true			
+			wrapper: 'video-wrapper',
+			props: {
+				width: 320,
+				height: 240,
+				id: null,
+				srcs: {
+					mp4: 'http://dev.giantrobot.co.uk/basic.mp4',
+					ogg: 'http://dev.giantrobot.co.uk/basic.ogg' 
+				},
+				attrs: {
+					muted: true
+				},
+				forceReload: true
+			},
+			keyframes: 'basic.xml'		
 		});	
 		video.gotoAndPlay('intro_loop');
 	}
@@ -81,7 +105,7 @@
 						{
 							name: 'headBangWindowFunction',
 							params: 'head bang call from fence fall',
-							scope: window
+							scope: document.window
 						}
 					]					
 				}
@@ -94,11 +118,6 @@
 		this.fenceFallScopeFunction2 = function(params){
 			console.log(params);
 		}
-	}
-
-
-	function videoLoaded(){
-		console.log('video loaded');
 	}
 </script>
 </body>

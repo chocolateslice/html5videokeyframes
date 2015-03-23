@@ -34,6 +34,8 @@ keyframeVideo.gotoAndPlay({
 	}
 });
 ```
+Within the XML the only scope options are internal or window. JS function can call any scope
+
 ## Dependencies
 
 * [xml2json](https://github.com/ron-liu/xml2json) - XML to JSON Parser. Required for the conversion of the XML and available on bower.
@@ -56,6 +58,5 @@ Concats dependacies and the libaray into one easy to use minified file
 
 ## TODO:
 
-* Find alternative for eval (cause everyone gets their knickers in a twist when eval is used)
-* Enable options buffering
-* Check video load state
+* Improve this stunningly bad documentation
+* Potentially find a way to check the whole video is loaded before doing anything
