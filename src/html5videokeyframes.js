@@ -218,6 +218,7 @@
 		if(props.srcs.mp4) videoHtml += '<source src="' + props.srcs.mp4 + qs + '" type="video/mp4">';
 		if(props.srcs.ogg) videoHtml += '<source src="' + props.srcs.ogg + qs + '" type="video/ogg">';
 		if(props.srcs.webm) videoHtml += '<source src="' + props.srcs.ogg + qs + '" type="video/webm">';
+		videoHtml += 'Your browser does not support HTML5 video...<a href="http://browsehappy.com/" target="_blank" title="Browse Happy">best upgrade</a>';
 		videoHtml += '</video>';
 		vc.innerHTML = videoHtml;
 
