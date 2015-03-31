@@ -2,16 +2,27 @@
 
 JavaScript library for XML driven keyframes in HTML5 video.
 
-While it does work on mobile the limitation is that the video has to be manually started before anything can happen. Tough but fair.
-
-I can only apologise for any errors. I do intend to tidy up the code and the instructions but I have to skip onto something else right now.
+While it does work on mobile the limitation is that the video has to be manually started before anything can happen.
 
 ## Usage
 Initialise
 ```
 keyframeVideo = vkf.init({
-	src: 'src.xml', // XML src file
-	id: 'video-0' // ID of the video element
+	wrapper: 'video-wrapper',
+	props: {
+		width: 320,
+		height: 240,
+		id: null,
+		srcs: {
+			mp4: 'http://dev.giantrobot.co.uk/basic.mp4',
+			ogg: 'http://dev.giantrobot.co.uk/basic.ogg' 
+		},
+		attrs: {
+			muted: true
+		},
+		forceReload: true
+	},
+	keyframes: 'basic.xml'	
 });	
 ```
 To a keyframe by name
