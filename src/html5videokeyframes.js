@@ -68,6 +68,10 @@
 				keyframeName = params;
 			}			
 			var frameData = _keyframeByName(_instance, keyframeName);
+			if(!frameData){
+				console.log('No keyframe data found');
+				return;
+			}
 			frameData.onComplete = onComplete ? onComplete : frameData.complete;
 			frameData.onBegin = onBegin ? onBegin : frameData.begin;
 			_instance._seekTo(frameData.start);
