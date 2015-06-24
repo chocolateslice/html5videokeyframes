@@ -55,10 +55,9 @@
 	/**
 	 * Public methods
 	 */
-	HTML5VideoKeyframes.prototype.goToAndPlay = function(params){
+	HTML5VideoKeyframes.prototype.gotoAndPlay = function(params){
 		_instance._keyframeState().then(function(){
-			var keyframeName;
-			var frameData 
+			var keyframeName; 
 			var onComplete;
 			var onBegin;
 			if(params.constructor === Object){
@@ -68,7 +67,7 @@
 			}else if(params.constructor === String){
 				keyframeName = params;
 			}			
-			frameData = _keyframeByName(_instance, keyframeName);
+			var frameData = _keyframeByName(_instance, keyframeName);
 			if(!frameData){
 				console.log('No keyframe data found');
 				return;
@@ -80,26 +79,10 @@
 			_instance._play();
 		}, function(){
 			setTimeout(function(){
-				_instance.goToAndPlay(params);
+				_instance.gotoAndPlay(params);
 			}, 50);
 			return;
 		});	
-	};
-	HTML5VideoKeyframes.prototype.goToAndStop = function(params){
-		_instance._keyframeState().then(function(){
-			var keyframeName; 
-			var frameData = _keyframeByName(_instance, keyframeName);
-			if(!frameData){
-				console.log('No keyframe data found');
-				return;
-			}
-			_instance._seekTo(frameData.start);
-		}, function(){
-			setTimeout(function(){
-				_instance.goToAndStop(params);
-			}, 50);
-			return;
-		});
 	};
 	HTML5VideoKeyframes.prototype.stop = function(){
 		_instance._stop();

@@ -37,9 +37,8 @@
 		</div>
 	</div>
 <!-- Scripts -->
-<script src="../bower_components/es6-promise/promise.min.js"></script>	
-<script src="../bower_components/xml2json/xml2json.js"></script>
-<script src="../src/html5videokeyframes.js"></script>
+<script src="scripts/vendor.js"></script>
+<script src="scripts/html5videokeyframes.js"></script>
 <script>
 	window.onload = function () {
 		init();
@@ -81,7 +80,7 @@
 		console.log(params);
 	}
 
-	var scope = new FenceFall();
+	var scopedExample = new FenceFall();
 
 	function FenceFall(){
 		var that = this;
