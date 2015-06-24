@@ -58,7 +58,7 @@
 	HTML5VideoKeyframes.prototype.goToAndPlay = function(params){
 		_instance._keyframeState().then(function(){
 			var keyframeName;
-			var frameData 
+			var frameData;
 			var onComplete;
 			var onBegin;
 			if(params.constructor === Object){

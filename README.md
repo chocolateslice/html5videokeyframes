@@ -2,7 +2,7 @@
 
 JavaScript library for XML driven keyframes in HTML5 video.
 
-While it does work on mobile the limitation is that the video has to be manually started before anything can happen.
+It does work on mobile though is limited by the need to manually start the video before anything can happen.
 
 ## Usage
 Initialise
@@ -27,11 +27,11 @@ keyframeVideo = vkf.init({
 ```
 To a keyframe by name
 ```
-keyframeVideo.gotoAndPlay('loop_name');
+keyframeVideo.goToAndPlay('loop_name');
 ```
 To a keyframe by name with additonal paramaters
 ```
-keyframeVideo.gotoAndPlay({
+keyframeVideo.goToAndPlay({
 	name:'loop_name',
 	onComplete: {
 		func:[
