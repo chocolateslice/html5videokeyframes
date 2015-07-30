@@ -12,7 +12,7 @@
 		<end>76.00</end>
 		<complete>
 			<func>
-				<name>gotoAndPlay</name>
+				<name>goToAndPlay</name>
 				<params>wedding_loop</params>
 				<scope></scope>
 			</func>			

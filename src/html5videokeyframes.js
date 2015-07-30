@@ -177,11 +177,12 @@
 		});
 	};
 	HTML5VideoKeyframes.prototype._startInterval = function(frameData){
-		if(frameData.onBegin) _ononKeyframeEvent(_instance, frameData.onBegin, frameData);
+		if(frameData.onBegin) _onKeyframeEvent(_instance, frameData.onBegin, frameData);
 		// Restart  monitor interval
 		_instance._stopInterval();
 		_instance._interval = setInterval(function(){
-			_instance._monitorInterval(frameData);
+			//_instance._monitorInterval(frameData);
+			_instance._doubleCheck(frameData);
 		}, 10);
 	};
 	HTML5VideoKeyframes.prototype._stopInterval = function(){
@@ -200,6 +201,14 @@
 			}
 		}
 	};
+	HTML5VideoKeyframes.prototype._doubleCheck = function(frameData){
+		if(Math.round(_instance._videoElement.currentTime) > (Math.round(frameData.end) + 1)){
+			_instance._stopInterval();
+			_instance._pause();
+
+			if(frameData.onComplete) _onKeyframeEvent(_instance, frameData.onComplete, frameData);
+		}
+	}
 	HTML5VideoKeyframes.prototype._seekTo = function(time){
 		try{
 			_instance._videoElement.currentTime = time;
