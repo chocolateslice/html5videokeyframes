@@ -181,7 +181,7 @@
 		// Restart  monitor interval
 		_instance._stopInterval();
 		_instance._interval = setInterval(function(){
-			//_instance._monitorInterval(frameData);
+			_instance._monitorInterval(frameData);
 			_instance._doubleCheck(frameData);
 		}, 10);
 	};
