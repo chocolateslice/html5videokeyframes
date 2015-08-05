@@ -208,7 +208,7 @@
 
 			if(frameData.onComplete) _onKeyframeEvent(_instance, frameData.onComplete, frameData);
 		}
-	}
+	};
 	HTML5VideoKeyframes.prototype._seekTo = function(time){
 		try{
 			_instance._videoElement.currentTime = time;
@@ -240,8 +240,9 @@
 		videoHtml += '" height="';
 		videoHtml += props.height || 240;
 		videoHtml += '" id="' + id + '" ';
-		if(props.attrs.muted) videoHtml += 'muted ';
-		if(props.attrs.controls) videoHtml += 'controls ';
+		if(props.attrs.muted === true) videoHtml += 'muted ';
+		if(props.attrs.controls === true) videoHtml += 'controls ';
+		if(props.attrs.autoplay === true) videoHtml += 'autoplay ';
 		if(props.attrs.poster) videoHtml += 'poster="' + props.attrs.poster + '" ';
 		if(props.attrs.title) videoHtml += 'title="' + props.attrs.title + '" ';
 		videoHtml += 'preload="auto">';
